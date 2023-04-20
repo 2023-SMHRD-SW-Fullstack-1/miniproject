@@ -23,7 +23,9 @@ public class Controller {
 		}else if(a.equals("파이리")) {
 			musicList.add(new Model("music/파이리.mp3"));
 			musicList.add(new Model("music/파이리.mp3"));
+			musicList.add(new Model("music/파이리.mp3"));
 		}else if(a.equals("꼬북이")) {
+			musicList.add(new Model("music/꼬북이.mp3"));
 			musicList.add(new Model("music/꼬북이.mp3"));
 			musicList.add(new Model("music/꼬북이.mp3"));
 		}else if(a.equals("op")) {

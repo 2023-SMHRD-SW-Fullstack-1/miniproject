@@ -20,16 +20,19 @@ public class View {
 			if (teck) {
 				teck = false;
 				PKDTO firstPkDto = data.get(0);
-				if(firstPkDto.getPKNAME().equals("피카츄")){
-					System.out.println("피카츄입니다");
-				}
 				Controller cont = new Controller("op");
 				cont.play();
 				while (true) {
 				// 아스키 아트 and 소리 합쳐놓는게 편함. 앞에는 출력 뒤는 소리출력 + 이렇게 호출하게.
+					System.out.println("");
+					System.out.println("");
 					System.out.println(firstPkDto.toString());
+					System.out.println("");
+					System.out.println("");
 					System.out.println("1.밥먹기 2.잠자기 3.씻기 4.모험하기 5.종료하기");
+					System.out.println("");
 					System.out.println((day + 1) + "일 " + (count + 1) + " 번째 행동");
+					System.out.println("");
 					int sw = sc.nextInt();
 
 					if (sw == prevSw) { // 이전 선택지와 같은 선택지를 선택한 경우
@@ -47,7 +50,9 @@ public class View {
 						if(firstPkDto.getPKNAME().equals("꼬북이")) art.eatS();
 						Controller conts = new Controller(firstPkDto.getPKNAME());
 						conts.next(0);
+						System.out.println("");
 						System.out.println("밥을 우걱 우걱 먹습니다");
+						System.out.println("");
 						firstPkDto = data.get(0);
 						int currentStt = firstPkDto.getSTT();
 						int newStt = currentStt + 40;
@@ -99,7 +104,69 @@ public class View {
 							System.out.println("컨디션이 이미 최대치입니다.");
 						}
 					} else if (sw == 4) {
-						System.out.println("모험하기");
+						 System.out.println("모험을 떠납니다");
+		                  while (true) {
+		                     if (firstPkDto.getLV() <= 10) {
+		                        System.out.println("야생의 꼬마돌이 나타났다!");
+		                        int enemyHP = 10;
+		                        System.out.print("1.싸운다 2.도망친다 ");
+		                        int menu = sc.nextInt();
+		                        if (menu == 1) {
+		                           enemyHP -= firstPkDto.getATK();
+		                           System.out.println("공격 효과가 굉장했다!");
+		                           if (enemyHP <= 0) {
+		                              System.out.println("꼬마돌은 쓰러졌다.");
+		                              System.out.println("전투 종료");
+		                              firstPkDto.setXP(firstPkDto.getXP()+1);
+		                              firstPkDto.setSTT(firstPkDto.getSTT()-40);
+		                              firstPkDto.setFTG(firstPkDto.getFTG()-10);
+		                              break;
+		                           }
+		                        } else {
+		                           break;
+		                        }
+		                     } else if (firstPkDto.getLV() <= 20) {
+		                        System.out.println("야생의 피존이 나타났다!");
+		                        int enemyHP = 20;
+		                        System.out.print("1.싸운다 2.도망친다 ");
+		                        int menu = sc.nextInt();
+		                        if (menu == 1) {
+		                           System.out.println("공격 효과가 굉장했다!");
+		                           enemyHP -= firstPkDto.getATK();
+		                           if (enemyHP <= 0) {
+		                              System.out.println("피존은 쓰러졌다.");
+		                              System.out.println("전투 종료");
+		                              firstPkDto.setXP(firstPkDto.getXP()+1);
+		                              firstPkDto.setSTT(firstPkDto.getSTT()-40);
+		                              firstPkDto.setFTG(firstPkDto.getFTG()-10);
+		                              break;
+		                           }
+		                        } else {
+		                           break;
+		                        }
+		                     } else {
+		                        System.out.println("야생의 갸라도스가 나타났다!");
+		                        int enemyHP = 30;
+		                        System.out.print("1.싸운다 2.도망친다 ");
+		                        int menu = sc.nextInt();
+		                        if (menu == 1) {
+		                           System.out.println("공격 효과가 굉장했다!");
+		                           enemyHP -= firstPkDto.getATK();
+		                           if (enemyHP <= 0) {
+		                              System.out.println("갸라도스는 쓰러졌다.");
+		                              System.out.println("전투 종료");
+		                              firstPkDto.setXP(firstPkDto.getXP()+1);
+		                              firstPkDto.setSTT(firstPkDto.getSTT()-40);
+		                              firstPkDto.setFTG(firstPkDto.getFTG()-10);
+		                              break;
+		                           }
+		                        } else {
+		                           break;
+		                        }
+		                     }
+
+		                  }
+
 						
 					} else if (sw == 5) {
 						System.out.println("종료합니다");
@@ -113,17 +180,24 @@ public class View {
 						firstPkDto.setSTT(firstPkDto.getSTT() - 20); // STT 값 40 감소
 						firstPkDto.setFTG(firstPkDto.getFTG() - 10); // FTG 값 20 감소
 						firstPkDto.setCNDTN(firstPkDto.getCNDTN() - 1); // CNDTN 값 1 감소
+						System.out.println("");
 						System.out.println("하루가 지났습니다. 포만감 -40, 피로도 -20, 컨디션 -1");
+						System.out.println("");
 						day++;
 						count = 0;
 					}
 					firstPkDto = data.get(0);
 					if (firstPkDto.getSTT() <= 0 || firstPkDto.getFTG() <= 0) {
 						if(firstPkDto.getSTT() <= 0) {
+							System.out.println("");
 							System.out.println("배고파서 게임오버");
 						}else System.out.println("피곤해서 게임오버");
 						dao.update(firstPkDto);
 						break;
+					}
+					if(firstPkDto.getXP()>=10) {
+						firstPkDto.setXP(firstPkDto.getXP() - 10);
+						firstPkDto.setLV(firstPkDto.getLV()+1);
 					}
 				}
 			}

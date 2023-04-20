@@ -118,5 +118,8 @@ public class PKDTO {
 		return "[레벨=" + LV + ", 포만감=" + STT + ", 피로도=" + FTG + ", 컨디션=" + CNDTN + ", 경험치=" + XP + ", HP=" + HP
 	            + ", 공격력=" + ATK + ", 방어력=" + DEF +"]";
 	}
-	
+	public String BtoString() {
+		return "[레벨=" + LV +", 경험치=" + XP + ", HP=" + HP
+	            + ", 공격력=" + ATK + ", 방어력=" + DEF +"]";
+	}
 }
