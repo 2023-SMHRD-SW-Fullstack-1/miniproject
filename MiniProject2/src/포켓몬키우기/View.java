@@ -92,14 +92,20 @@ public class View {
 						}
 						firstPkDto.setFTG(currFtg); // 변경된 FTG 값 저장
 						System.out.println("피로도가 " + currFtg + "로 회복되었습니다.");
-
+						int currHP = firstPkDto.getHP(); // 현재 HP 값 가져오기
+						if (firstPkDto.getHP() < 24 + (firstPkDto.getLV() * 3))
+							currHP = (firstPkDto.getLV()) + 24; // HP 회복
+						firstPkDto.setHP(currHP); // 변경된 HP 값 저장
 						// 잠자기로 인해 포만감이 떨어짐
 						int currentStt = firstPkDto.getSTT();
 						int newStt = currentStt - 10;
+
 						if (newStt < 0) {
 							newStt = 0;
 						}
 						firstPkDto.setSTT(newStt);
+
+						System.out.println("HP가 " + currHP + "로 회복되었습니다.");
 						System.out.println("잠자서 포만감이 " + newStt + "가 되었습니다.");
 					} else if (sw == 3) {
 						if (firstPkDto.getPKNAME().equals("피카츄"))
@@ -119,163 +125,101 @@ public class View {
 							System.out.println("컨디션이 이미 최대치입니다.");
 						}
 					} else if (sw == 4) {
-						if (firstPkDto.getSTT() <= 50 || firstPkDto.getFTG() <= 50) {
-							System.out.println("모험을 떠나기엔 너무 피곤합니다.");
-						}
-
-						System.out.println("");
-
 						System.out.println("모험을 떠납니다");
-						while (true) {
-							Controller conts = new Controller("bt");
-							conts.next(0);
+
+						while (firstPkDto.getFTG() > 0 && firstPkDto.getHP() > 0) {
+							int enemyHP = 0, enemyLV = 0, enemyATK = 0, enemyDEF = 0;
+							String enemyName = "";
 							if (firstPkDto.getLV() <= 10) {
-								System.out.println("야생의 꼬마돌이 나타났다!");
-								int enemyHP = 50;
-								int enemyLV = 8;
-								int enemyATK = 3;
-								int enemyDEF = 4;
-								int myATK = firstPkDto.getATK();
-
-								if (firstPkDto.getCNDTN() == 1) {
-									myATK = (int) (myATK * 0.7 - enemyDEF);
-								} else if (firstPkDto.getCNDTN() == 2) {
-									myATK = (int) (myATK * 0.9 - enemyDEF);
-								} else if (firstPkDto.getCNDTN() == 3) {
-									myATK = (int) (myATK - enemyDEF);
-								} else if (firstPkDto.getCNDTN() == 4) {
-									myATK = (int) (myATK * 1.1 - enemyDEF);
-								} else {
-									myATK = (int) (myATK * 1.3 - enemyDEF);
-								}
-
-								while (true) {
-									System.out.println("====================");
-									System.out.println("꼬마돌 " + "레벨 " + enemyLV + " HP " + enemyHP + " 공격력 " + enemyATK
-											+ " 방어력 " + enemyDEF);
-									System.out.println(firstPkDto.getPKNAME() + " 레벨 " + firstPkDto.getLV() + " HP "
-											+ firstPkDto.getHP() + " 공격력 " + firstPkDto.getATK() + " 방어력 "
-											+ firstPkDto.getDEF());
-									System.out.println("====================");
-									System.out.print("1.싸운다 2.도망친다 ");
-									int menu = sc.nextInt();
-									if (menu == 1) {
-										enemyHP -= myATK;
-										System.out.println("공격 효과가 굉장했다!");
-										if (enemyHP <= 0) {
-											System.out.println("꼬마돌은 쓰러졌다.");
-											System.out.println("전투 종료");
-											break;
-										}
-									} else {
-										break;
-									}
-								}
-
-								firstPkDto.setXP(firstPkDto.getXP() + 1);
-								firstPkDto.setSTT(firstPkDto.getSTT() - 40);
-								firstPkDto.setFTG(firstPkDto.getFTG() - 10);
-
-								break;
+								System.out.println("로켓단의 꼬마돌이 나타났다!");
+								enemyName = "꼬마돌";
+								enemyHP = (int) 200 + (day / 3);
+								enemyLV = (int) 8 + (day / 3);
+								enemyATK = (int) 13 + (day / 3);
+								enemyDEF = (int) 4 + (day / 3);
 							} else if (firstPkDto.getLV() <= 20) {
-								System.out.println("야생의 피존이 나타났다!");
-								int enemyHP = 100;
-								int enemyLV = 15;
-								int enemyATK = 10;
-								int enemyDEF = 10;
-
-								int myATK = firstPkDto.getATK();
-
-								if (firstPkDto.getCNDTN() == 1) {
-									myATK = (int) (myATK * 0.7 - enemyDEF);
-								} else if (firstPkDto.getCNDTN() == 2) {
-									myATK = (int) (myATK * 0.9 - enemyDEF);
-								} else if (firstPkDto.getCNDTN() == 3) {
-									myATK = (int) (myATK - enemyDEF);
-								} else if (firstPkDto.getCNDTN() == 4) {
-									myATK = (int) (myATK * 1.1 - enemyDEF);
-								} else {
-									myATK = (int) (myATK * 1.3 - enemyDEF);
-								}
-
-								while (true) {
-									System.out.println("====================");
-									System.out.println("피존 " + "레벨 " + enemyLV + " HP " + enemyHP + " 공격력 " + enemyATK
-											+ " 방어력 " + enemyDEF);
-									System.out.println(firstPkDto.getPKNAME() + " 레벨 " + firstPkDto.getLV() + " HP "
-											+ firstPkDto.getHP() + " 공격력 " + firstPkDto.getATK() + " 방어력 "
-											+ firstPkDto.getDEF());
-									System.out.println("====================");
-									System.out.print("1.싸운다 2.도망친다 ");
-									int menu = sc.nextInt();
-									if (menu == 1) {
-										enemyHP -= myATK;
-										System.out.println("공격 효과가 굉장했다!");
-										if (enemyHP <= 0) {
-											System.out.println("피존은 쓰러졌다.");
-											System.out.println("전투 종료");
-											break;
-										}
-									} else {
-										break;
-									}
-								}
-
-								firstPkDto.setXP(firstPkDto.getXP() + 1);
-								firstPkDto.setSTT(firstPkDto.getSTT() - 40);
-								firstPkDto.setFTG(firstPkDto.getFTG() - 10);
-
-								break;
+								System.out.println("로켓단의 피존이 나타났다!");
+								enemyName = "피존";
+								enemyHP = 100;
+								enemyLV = 50;
+								enemyATK = 40;
+								enemyDEF = 30;
 							} else {
-								System.out.println("야생의 갸라도스가 나타났다!");
-								int enemyHP = 150;
-								int enemyLV = 30;
-								int enemyATK = 15;
-								int enemyDEF = 15;
+								// ...
+							}
 
-								int myATK = firstPkDto.getATK();
+							int myATK = firstPkDto.getATK();
 
-								if (firstPkDto.getCNDTN() == 1) {
-									myATK = (int) (myATK * 0.7 - enemyDEF);
-								} else if (firstPkDto.getCNDTN() == 2) {
-									myATK = (int) (myATK * 0.9 - enemyDEF);
-								} else if (firstPkDto.getCNDTN() == 3) {
-									myATK = (int) (myATK - enemyDEF);
-								} else if (firstPkDto.getCNDTN() == 4) {
-									myATK = (int) (myATK * 1.1 - enemyDEF);
-								} else {
-									myATK = (int) (myATK * 1.3 - enemyDEF);
-								}
+							switch (firstPkDto.getCNDTN()) {
+							case 1:
+								myATK = (int) (myATK * 1 - enemyDEF);
+								break;
+							case 2:
+								myATK = (int) (myATK * 2 - enemyDEF);
+								break;
+							case 3:
+								myATK = (int) (myATK * 3 - enemyDEF);
+								break;
+							case 4:
+								myATK = (int) (myATK * 4 - enemyDEF);
+								break;
+							default:
+								myATK = (int) (myATK * 5 - enemyDEF);
+								break;
+							}
 
-								while (true) {
-									System.out.println("====================");
-									System.out.println("갸라도스 " + "레벨 " + enemyLV + " HP " + enemyHP + " 공격력 " + enemyATK
-											+ " 방어력 " + enemyDEF);
-									System.out.println(firstPkDto.getPKNAME() + " 레벨 " + firstPkDto.getLV() + " HP "
-											+ firstPkDto.getHP() + " 공격력 " + firstPkDto.getATK() + " 방어력 "
-											+ firstPkDto.getDEF());
-									System.out.println("====================");
-									System.out.print("1.싸운다 2.도망친다 ");
-									int menu = sc.nextInt();
-									if (menu == 1) {
-										enemyHP -= myATK;
-										System.out.println("공격 효과가 굉장했다!");
-										if (enemyHP <= 0) {
-											System.out.println("갸라도스는 쓰러졌다.");
-											System.out.println("전투 종료");
+							while (true) {
+								System.out.println("====================");
+								System.out.printf("%s 레벨 %d HP %d 공격력 %d 방어력 %d\n", enemyName, enemyLV, enemyHP,
+										enemyATK, enemyDEF);
+								System.out.printf("%s 레벨 %d HP %d 공격력 %d 방어력 %d\n", firstPkDto.getPKNAME(),
+										firstPkDto.getLV(), firstPkDto.getHP(), firstPkDto.getATK(),
+										firstPkDto.getDEF());
+								System.out.println("====================");
+								System.out.print("1.싸운다 2.도망친다 ");
+								int menu = sc.nextInt();
+								
+								Controller conts = new Controller("bt");
+								conts.next(1);
+								if (menu == 1) {
+									enemyHP -= myATK;
+									System.out.println("공격 효과가 굉장했다!");
+									if (enemyHP <= 0) {
+										System.out.println("전투 종료");
+										break;
+									} else {
+										int damage = enemyATK - firstPkDto.getDEF();
+										if (damage < 0)
+											damage = 0;
+										firstPkDto.setHP(firstPkDto.getHP() - damage);
+										System.out.printf("%s이(가) %d의 데미지를 입었습니다.\n", firstPkDto.getPKNAME(), damage);
+										if (firstPkDto.getHP() <= 0) {
+											System.out.println("포켓몬이 지쳐 쓰러졌습니다.");
+											if (firstPkDto.getHP() <= 0) {
+												firstPkDto.setHP(0);
+											}
 											break;
 										}
-									} else {
-										break;
 									}
+								} else {
+									break;
 								}
-
 							}
+
+							firstPkDto.setXP(firstPkDto.getXP() + 5);
+							firstPkDto.setSTT(firstPkDto.getSTT() - 40);
+							firstPkDto.setFTG(firstPkDto.getFTG() - 10);
+							if (enemyHP <= 0 || firstPkDto.getFTG() <= 0) {
+								if (enemyHP <= 0) {
+									System.out.println("승리했습니다!");
+								} else {
+									System.out.println("포켓몬이 지쳐 쓰러졌습니다.");
+								}
+								break;
+							}
+							break;
 						}
-						firstPkDto.setXP(firstPkDto.getXP() + 1);
-						firstPkDto.setSTT(firstPkDto.getSTT() - 40);
-						firstPkDto.setFTG(firstPkDto.getFTG() - 10);
-						break;
+
 					} else if (sw == 5) {
 						System.out.println("종료합니다");
 						dao.update(firstPkDto);
@@ -305,8 +249,13 @@ public class View {
 						break;
 					}
 					if (firstPkDto.getXP() >= 10) {
+						System.out.println("레벨이 올라갔습니다 !!");
 						firstPkDto.setXP(firstPkDto.getXP() - 10);
 						firstPkDto.setLV(firstPkDto.getLV() + 1);
+						firstPkDto.setATK(firstPkDto.getATK() + 1);
+						firstPkDto.setDEF(firstPkDto.getDEF() + 1);
+						System.out.printf("%d 레벨 %d 공격력 %d 방어력 \n", firstPkDto.getLV(), firstPkDto.getATK(),
+								firstPkDto.getDEF());
 					}
 				}
 			}
@@ -336,12 +285,17 @@ public class View {
 						String name;
 						if (inPs == 1) {
 							name = "피카츄";
+							PKDTO temp = new PKDTO(1, 10, 10, 1, 25, 0, 100, 100, 3, id, pw, name);
+							data.add(temp);
 						} else if (inPs == 2) {
 							name = "파이리";
-						} else
+							PKDTO temp = new PKDTO(1, 10, 10, 1, 25, 0, 100, 100, 3, id, pw, name);
+							data.add(temp);
+						} else if (inPs == 3) {
 							name = "꼬북이";
-						PKDTO temp = new PKDTO(1, 10, 10, 1, 10, 0, 100, 100, 3, id, pw, name);
-						data.add(temp);
+							PKDTO temp = new PKDTO(1, 10, 10, 1, 25, 0, 100, 100, 3, id, pw, name);
+							data.add(temp);
+						}
 					} else {
 						System.out.println("저장된 데이터를 불러옵니다");
 						PKDTO temp = dao.select(id, pw);

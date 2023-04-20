@@ -19,7 +19,7 @@ public class Controller {
 		if(a.equals("피카츄")) {
 			musicList.add(new Model("music/피카츄.mp3"));
 			musicList.add(new Model("music/피카.mp3"));
-			musicList.add(new Model("music/피카피카.mp3"));
+			musicList.add(new Model("music/피카피카.mp3 "));
 		}else if(a.equals("파이리")) {
 			musicList.add(new Model("music/파이리.mp3"));
 			musicList.add(new Model("music/파이리2.mp3"));
@@ -31,7 +31,9 @@ public class Controller {
 		}else if(a.equals("op")) {
 			musicList.add(new Model("music/오프닝노래.mp3"));
 		}else if(a.equals("bt")) {
-			musicList.add(new Model("music/로켓단등장.mp3"));
+			musicList.add(new Model("music/전투.mp3"));
+		}else if(a.equals("gameover")) {
+			
 		}
 	}
 	
