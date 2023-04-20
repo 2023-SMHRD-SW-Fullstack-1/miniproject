@@ -105,6 +105,8 @@ public class DAPokeMonDAO {
 	public int update(PKDTO pk) {
 		if(pk.getSTT() <= 0 || pk.getFTG() <= 0) {
 			pk.setLIVE(0);
+			pk.setSTT(100);
+			pk.setFTG(100);
 		}
 	    getConn();
 	    int result = 0;

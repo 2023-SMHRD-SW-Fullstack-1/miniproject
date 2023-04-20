@@ -22,14 +22,16 @@ public class Controller {
 			musicList.add(new Model("music/피카피카.mp3"));
 		}else if(a.equals("파이리")) {
 			musicList.add(new Model("music/파이리.mp3"));
-			musicList.add(new Model("music/파이리.mp3"));
-			musicList.add(new Model("music/파이리.mp3"));
+			musicList.add(new Model("music/파이리2.mp3"));
+			musicList.add(new Model("music/파이파이파이리.mp3"));
 		}else if(a.equals("꼬북이")) {
 			musicList.add(new Model("music/꼬북이.mp3"));
-			musicList.add(new Model("music/꼬북이.mp3"));
-			musicList.add(new Model("music/꼬북이.mp3"));
+			musicList.add(new Model("music/꼬부욱.mp3"));
+			musicList.add(new Model("music/꼬북꼬북.mp3"));
 		}else if(a.equals("op")) {
 			musicList.add(new Model("music/오프닝노래.mp3"));
+		}else if(a.equals("bt")) {
+			musicList.add(new Model("music/로켓단등장.mp3"));
 		}
 	}
 	
