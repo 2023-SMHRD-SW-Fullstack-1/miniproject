@@ -46,7 +46,7 @@ public class View {
 						if(firstPkDto.getPKNAME().equals("파이리")) art.eatC();
 						if(firstPkDto.getPKNAME().equals("꼬북이")) art.eatS();
 						Controller conts = new Controller(firstPkDto.getPKNAME());
-						conts.play();
+						conts.next(0);
 						System.out.println("밥을 우걱 우걱 먹습니다");
 						firstPkDto = data.get(0);
 						int currentStt = firstPkDto.getSTT();
@@ -65,7 +65,7 @@ public class View {
 						if(firstPkDto.getPKNAME().equals("파이리")) art.sleepC();
 						if(firstPkDto.getPKNAME().equals("꼬북이")) art.sleepS();
 						Controller conts = new Controller(firstPkDto.getPKNAME());
-						conts.play();
+						conts.next(1);
 						System.out.println("잠자기");
 						firstPkDto = data.get(0);
 						int currFtg = firstPkDto.getFTG(); // 현재 FTG 값 가져오기
@@ -89,7 +89,7 @@ public class View {
 						if(firstPkDto.getPKNAME().equals("파이리")) art.washC();
 						if(firstPkDto.getPKNAME().equals("꼬북이")) art.washS();
 						Controller conts = new Controller(firstPkDto.getPKNAME());
-						conts.play();
+						conts.next(2);
 						System.out.println("씻기");
 						firstPkDto = data.get(0);
 						if (firstPkDto.getCNDTN() < 5) { // CNDTN이 100이하일 때만 증가하도록 함
@@ -119,8 +119,10 @@ public class View {
 					}
 					firstPkDto = data.get(0);
 					if (firstPkDto.getSTT() <= 0 || firstPkDto.getFTG() <= 0) {
-						System.out.println(firstPkDto.toString());
-						System.out.println("게임오버");
+						if(firstPkDto.getSTT() <= 0) {
+							System.out.println("배고파서 게임오버");
+						}else System.out.println("피곤해서 게임오버");
+						dao.update(firstPkDto);
 						break;
 					}
 				}
