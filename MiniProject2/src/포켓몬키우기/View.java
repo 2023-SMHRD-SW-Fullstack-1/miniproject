@@ -31,7 +31,9 @@ public class View {
 					System.out.println("");
 					System.out.println("1.밥먹기 2.잠자기 3.씻기 4.모험하기 5.종료하기");
 					System.out.println("");
+					System.out.println("");
 					System.out.println((day + 1) + "일 " + (count + 1) + " 번째 행동");
+					System.out.println("");
 					System.out.println("");
 					int sw = sc.nextInt();
 
@@ -104,65 +106,114 @@ public class View {
 							System.out.println("컨디션이 이미 최대치입니다.");
 						}
 					} else if (sw == 4) {
-						 System.out.println("모험을 떠납니다");
+
+		                  System.out.println("모험을 떠납니다");
 		                  while (true) {
 		                     if (firstPkDto.getLV() <= 10) {
 		                        System.out.println("야생의 꼬마돌이 나타났다!");
-		                        int enemyHP = 10;
-		                        System.out.print("1.싸운다 2.도망친다 ");
-		                        int menu = sc.nextInt();
-		                        if (menu == 1) {
-		                           enemyHP -= firstPkDto.getATK();
-		                           System.out.println("공격 효과가 굉장했다!");
-		                           if (enemyHP <= 0) {
-		                              System.out.println("꼬마돌은 쓰러졌다.");
-		                              System.out.println("전투 종료");
-		                              firstPkDto.setXP(firstPkDto.getXP()+1);
-		                              firstPkDto.setSTT(firstPkDto.getSTT()-40);
-		                              firstPkDto.setFTG(firstPkDto.getFTG()-10);
+		                        int enemyHP = 100;
+		                        int enemyLV = 8;
+		                        int enemyATK = 3;
+		                        int enemyDEF = 4;
+
+		                        while (true) {
+		                           System.out.println("====================");
+		                           System.out.println("꼬마돌 " + "레벨 " + enemyLV + " HP " + enemyHP + " 공격력 " + enemyATK
+		                                 + " 방어력 " + enemyDEF);
+		                           System.out.println(firstPkDto.getPKNAME() + " 레벨 " + firstPkDto.getLV() + " HP "
+		                                 + firstPkDto.getHP() + " 공격력 " + firstPkDto.getATK() + " 방어력 "
+		                                 + firstPkDto.getDEF());
+		                           System.out.println("====================");
+		                           System.out.print("1.싸운다 2.도망친다 ");
+		                           int menu = sc.nextInt();
+		                           if (menu == 1) {
+		                              enemyHP -= firstPkDto.getATK();
+		                              System.out.println("공격 효과가 굉장했다!");
+		                              if (enemyHP <= 0) {
+		                                 System.out.println("꼬마돌은 쓰러졌다.");
+		                                 System.out.println("전투 종료");
+		                                 break;
+		                              }
+		                           } else {
 		                              break;
 		                           }
-		                        } else {
-		                           break;
 		                        }
+
+		                        firstPkDto.setXP(firstPkDto.getXP() + 1);
+		                        firstPkDto.setSTT(firstPkDto.getSTT() - 40);
+		                        firstPkDto.setFTG(firstPkDto.getFTG() + 10);
+
+		                        break;
 		                     } else if (firstPkDto.getLV() <= 20) {
 		                        System.out.println("야생의 피존이 나타났다!");
-		                        int enemyHP = 20;
-		                        System.out.print("1.싸운다 2.도망친다 ");
-		                        int menu = sc.nextInt();
-		                        if (menu == 1) {
-		                           System.out.println("공격 효과가 굉장했다!");
-		                           enemyHP -= firstPkDto.getATK();
-		                           if (enemyHP <= 0) {
-		                              System.out.println("피존은 쓰러졌다.");
-		                              System.out.println("전투 종료");
-		                              firstPkDto.setXP(firstPkDto.getXP()+1);
-		                              firstPkDto.setSTT(firstPkDto.getSTT()-40);
-		                              firstPkDto.setFTG(firstPkDto.getFTG()-10);
+		                        int enemyHP = 100;
+		                        int enemyLV = 15;
+		                        int enemyATK = 10;
+		                        int enemyDEF = 10;
+
+		                        while (true) {
+		                           System.out.println("====================");
+		                           System.out.println("피존 " + "레벨 " + enemyLV + " HP " + enemyHP + " 공격력 " + enemyATK
+		                                 + " 방어력 " + enemyDEF);
+		                           System.out.println(firstPkDto.getPKNAME() + " 레벨 " + firstPkDto.getLV() + " HP "
+		                                 + firstPkDto.getHP() + " 공격력 " + firstPkDto.getATK() + " 방어력 "
+		                                 + firstPkDto.getDEF());
+		                           System.out.println("====================");
+		                           System.out.print("1.싸운다 2.도망친다 ");
+		                           int menu = sc.nextInt();
+		                           if (menu == 1) {
+		                              enemyHP -= firstPkDto.getATK();
+		                              System.out.println("공격 효과가 굉장했다!");
+		                              if (enemyHP <= 0) {
+		                                 System.out.println("피존은 쓰러졌다.");
+		                                 System.out.println("전투 종료");
+		                                 break;
+		                              }
+		                           } else {
 		                              break;
 		                           }
-		                        } else {
-		                           break;
 		                        }
+
+		                        firstPkDto.setXP(firstPkDto.getXP() + 1);
+		                        firstPkDto.setSTT(firstPkDto.getSTT() - 40);
+		                        firstPkDto.setFTG(firstPkDto.getFTG() + 10);
+
+		                        break;
 		                     } else {
 		                        System.out.println("야생의 갸라도스가 나타났다!");
-		                        int enemyHP = 30;
-		                        System.out.print("1.싸운다 2.도망친다 ");
-		                        int menu = sc.nextInt();
-		                        if (menu == 1) {
-		                           System.out.println("공격 효과가 굉장했다!");
-		                           enemyHP -= firstPkDto.getATK();
-		                           if (enemyHP <= 0) {
-		                              System.out.println("갸라도스는 쓰러졌다.");
-		                              System.out.println("전투 종료");
-		                              firstPkDto.setXP(firstPkDto.getXP()+1);
-		                              firstPkDto.setSTT(firstPkDto.getSTT()-40);
-		                              firstPkDto.setFTG(firstPkDto.getFTG()-10);
+		                        int enemyHP = 150;
+		                        int enemyLV = 30;
+		                        int enemyATK = 15;
+		                        int enemyDEF = 15;
+
+		                        while (true) {
+		                           System.out.println("====================");
+		                           System.out.println("갸라도스 " + "레벨 " + enemyLV + " HP " + enemyHP + " 공격력 " + enemyATK
+		                                 + " 방어력 " + enemyDEF);
+		                           System.out.println(firstPkDto.getPKNAME() + " 레벨 " + firstPkDto.getLV() + " HP "
+		                                 + firstPkDto.getHP() + " 공격력 " + firstPkDto.getATK() + " 방어력 "
+		                                 + firstPkDto.getDEF());
+		                           System.out.println("====================");
+		                           System.out.print("1.싸운다 2.도망친다 ");
+		                           int menu = sc.nextInt();
+		                           if (menu == 1) {
+		                              enemyHP -= firstPkDto.getATK();
+		                              System.out.println("공격 효과가 굉장했다!");
+		                              if (enemyHP <= 0) {
+		                                 System.out.println("갸라도스는 쓰러졌다.");
+		                                 System.out.println("전투 종료");
+		                                 break;
+		                              }
+		                           } else {
 		                              break;
 		                           }
-		                        } else {
-		                           break;
 		                        }
+
+		                        firstPkDto.setXP(firstPkDto.getXP() + 1);
+		                        firstPkDto.setSTT(firstPkDto.getSTT() - 40);
+		                        firstPkDto.setFTG(firstPkDto.getFTG() + 10);
+
+		                        break;
 		                     }
 
 		                  }
