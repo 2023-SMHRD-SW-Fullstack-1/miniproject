@@ -37,9 +37,12 @@ public class DAPokeMonDAO {
 	}
 
 	public int join(String id, String pw) {
-		getConn();
 		int result = 0;
-
+		if(select(id)) {
+			System.out.println("회원가입 실패");
+			return 0;
+		}
+		getConn();
 		try {
 			String sql = "INSERT INTO user_info (id, pw) VALUES (?, ?)";
 			pstm = conn.prepareStatement(sql);
@@ -55,6 +58,26 @@ public class DAPokeMonDAO {
 		close();
 		return result;
 
+	}
+	public boolean select(String id) {
+	    getConn();
+	    boolean result = false;
+	    try {
+	        String sql = "SELECT * FROM user_info WHERE id = ?";
+	        pstm = conn.prepareStatement(sql);
+	        pstm.setString(1, id);
+
+	        rs = pstm.executeQuery();
+
+	        if (rs.next()) {
+	            result = true;
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    close();
+	    return result;
 	}
 
 	public int login(String id, String pw) {
